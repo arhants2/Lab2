@@ -26,15 +26,42 @@ public class SolveMaze {
          * Pick (0, 0), the bottom left corner, as the starting point.
          * Put the end in the top right corner.
          */
-        maze.startAtZero();
+        maze.startAtRandomLocation();
         maze.endAtTopRight();
+        boolean rand = false;
 
         /*
          * You should be able to solve a 10 x 10 maze in (far fewer than) 1000 steps.
          * Feel free to adjust this number if you experiment with other mazes.
          */
-        for (int step = 0; step < 1000; step++) {
-            // Implement your maze solving algorithm here
+        if (!rand) {
+            for (int step = 0; step < 1000; step++) {
+                while (!maze.isFinished()) {
+
+                    maze.turnLeft();
+                    while (!maze.canMove()) {
+                        maze.turnRight();
+                    }
+                    maze.move();
+                }
+
+            }
+        } else if (rand) {
+            for (int step = 0; step < 1000; step++) {
+                while (!maze.isFinished()) {
+                    double x = Math.random();
+                    if (x < 0.5)
+                    {
+                        maze.turnLeft();
+                    } else {
+                        maze.turnRight();
+                    }
+                    while (!maze.canMove()) {
+                        maze.turnRight();
+                    }
+                    maze.move();
+                }
+            }
         }
 
         if (maze.isFinished()) {
